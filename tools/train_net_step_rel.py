@@ -13,6 +13,7 @@ import traceback
 import logging
 from collections import defaultdict
 
+import math
 import numpy as np
 import yaml
 import torch
@@ -20,6 +21,8 @@ from torch.autograd import Variable
 import torch.nn as nn
 import cv2
 cv2.setNumThreads(0)  # pytorch issue 1355: possible deadlock in dataloader
+
+# sys.path.append(os.path.dirname(os.path.dirname(os.path.realpath(__file__))) + "/Detectron_pytorch/lib")
 
 import _init_paths  # pylint: disable=unused-import
 import nn as mynn
@@ -168,14 +171,28 @@ def main():
         cfg.MODEL.NUM_PRD_CLASSES = 50  # exclude background
     elif args.dataset == "oi_rel":
         cfg.TRAIN.DATASETS = ('oi_rel_train',)
-        # cfg.MODEL.NUM_CLASSES = 62
         cfg.MODEL.NUM_CLASSES = 58
         cfg.MODEL.NUM_PRD_CLASSES = 9  # rel, exclude background
     elif args.dataset == "oi_rel_mini":
         cfg.TRAIN.DATASETS = ('oi_rel_train_mini',)
-        # cfg.MODEL.NUM_CLASSES = 62
         cfg.MODEL.NUM_CLASSES = 58
         cfg.MODEL.NUM_PRD_CLASSES = 9  # rel, exclude background
+    elif args.dataset == "gqa":
+        cfg.TRAIN.DATASETS = ('gqa_train',)
+        cfg.MODEL.NUM_CLASSES = 1704
+        cfg.MODEL.NUM_PRD_CLASSES = 310  # rel, exclude background
+    elif args.dataset == "gqa_verb":
+        cfg.TRAIN.DATASETS = ('gqa_verb_train',)
+        cfg.MODEL.NUM_CLASSES = 1321
+        cfg.MODEL.NUM_PRD_CLASSES = 216  # rel, exclude background
+    elif args.dataset == "gqa_spt":
+        cfg.TRAIN.DATASETS = ('gqa_spt_train',)
+        cfg.MODEL.NUM_CLASSES = 1321
+        cfg.MODEL.NUM_PRD_CLASSES = 23  # rel, exclude background
+    elif args.dataset == "gqa_misc":
+        cfg.TRAIN.DATASETS = ('gqa_misc_train',)
+        cfg.MODEL.NUM_CLASSES = 1321
+        cfg.MODEL.NUM_PRD_CLASSES = 70  # rel, exclude background
     else:
         raise ValueError("Unexpected args.dataset: {}".format(args.dataset))
 
@@ -276,7 +293,7 @@ def main():
     maskRCNN = Generalized_RCNN()
 
     if cfg.CUDA:
-        maskRCNN.cuda()
+        maskRCNN = maskRCNN.to(torch.device(3))#.cuda()
         
     ### Optimizer ###
     # record backbone params, i.e., conv_body and box_head params
@@ -363,7 +380,7 @@ def main():
     backbone_lr = optimizer.param_groups[0]['lr']  # lr of backbone parameters, for commmand line outputs.
 
     maskRCNN = mynn.DataParallel(maskRCNN, cpu_keywords=['im_info', 'roidb'],
-                                 minibatch=True)
+                                 minibatch=True, device_ids=[3])
 
     ### Training Setups ###
     args.run_name = misc_utils.get_run_name() + '_step_with_prd_cls_v' + str(cfg.MODEL.SUBTYPE)
@@ -431,7 +448,27 @@ def main():
                 assert lr == cfg.SOLVER.BASE_LR
 
             # Learning rate decay
-            if decay_steps_ind < len(cfg.SOLVER.STEPS) and \
+            # By Ji on 05/10/2019:
+            # added cosine annealing from funnyzhou/FPN-Pytorch
+            if cfg.SOLVER.COSINE_LR and step > cfg.SOLVER.WARM_UP_ITERS:
+                max_iter = cfg.SOLVER.MAX_ITER
+                iters_per_epoch = int(max_iter / cfg.SOLVER.COSINE_NUM_EPOCH)
+                multi = cfg.SOLVER.COSINE_MULTI
+                if step < iters_per_epoch * cfg.SOLVER.COSINE_T0:
+                    iters_T = iters_per_epoch * cfg.SOLVER.COSINE_T0
+                elif step < iters_per_epoch * cfg.SOLVER.COSINE_T0 * multi:
+                    iters_T = iters_per_epoch * cfg.SOLVER.COSINE_T0 * multi
+                else:
+                    iters_T = iters_per_epoch * cfg.SOLVER.COSINE_T0 * multi * multi
+                n_max = cfg.SOLVER.BASE_LR
+                n_min = n_max * cfg.SOLVER.GAMMA
+                lr_new = n_min + 0.5 * (n_max - n_min) * (1 + math.cos(step * math.pi / iters_T))
+                net_utils_rel.update_learning_rate_rel(optimizer, lr, lr_new)
+#                 lr = optimizer.param_groups[0]['lr']
+                lr = optimizer.param_groups[2]['lr']
+                assert lr == lr_new
+                decay_steps_ind += 1
+            elif decay_steps_ind < len(cfg.SOLVER.STEPS) and \
                     step == cfg.SOLVER.STEPS[decay_steps_ind]:
                 logger.info('Decay the learning on step %d', step)
                 lr_new = lr * cfg.SOLVER.GAMMA

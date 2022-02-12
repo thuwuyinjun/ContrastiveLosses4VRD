@@ -112,6 +112,8 @@ def extend_with_flipped_entries(roidb, dataset):
         oldx2 = obj_gt_boxes[:, 2].copy()
         obj_gt_boxes[:, 0] = width - oldx2 - 1
         obj_gt_boxes[:, 2] = width - oldx1 - 1
+        if not (obj_gt_boxes[:, 2] >= obj_gt_boxes[:, 0]).all():
+            print(obj_gt_boxes[np.where(obj_gt_boxes[:, 2] < obj_gt_boxes[:, 0])[0]])
         assert (obj_gt_boxes[:, 2] >= obj_gt_boxes[:, 0]).all()
         # now flip
         flipped_entry = {}

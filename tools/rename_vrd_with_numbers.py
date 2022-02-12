@@ -17,9 +17,13 @@ from shutil import copyfile
 # Also converts the gif and png images into jpg
 
 def process_vrd_split(in_split, out_split):
-    vrd_dir = 'data/vrd/sg_dataset/sg_' + in_split + '_images/'
-    new_dir = 'data/vrd/'+ out_split + '_images/'
-    os.mkdir(new_dir)
+    data_root = "/data6/wuyinjun/visual_genome/VRD/"
+    vrd_dir = data_root + "/sg_dataset/sg_" + in_split + "_images/"
+    # vrd_dir = 'data/vrd/sg_dataset/sg_' + in_split + '_images/'
+    # new_dir = 'data/vrd/'+ out_split + '_images/'
+    new_dir = os.path.join(data_root, out_split + '_images/')
+    if not os.path.exists(new_dir):
+        os.mkdir(new_dir)
     
     cnt = 1
     name_map = {}

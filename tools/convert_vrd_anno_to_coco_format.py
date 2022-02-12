@@ -28,8 +28,8 @@ def convert_anno(split):
 
 
     print(len(vrd_anns))
-
-    img_dir = 'data/vrd/' + split + '_images/'
+    data_root = "/data6/wuyinjun/visual_genome/VRD/"
+    img_dir = data_root + split + '_images/'
     new_imgs = []
     new_anns = []
     ann_id = 1

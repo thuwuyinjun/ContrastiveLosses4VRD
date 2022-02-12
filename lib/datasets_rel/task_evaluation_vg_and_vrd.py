@@ -25,10 +25,7 @@ np.set_printoptions(precision=3)
 logger = logging.getLogger(__name__)
 
 
-topk = 100
-
-
-def eval_rel_results(all_results, output_dir, do_val):
+def eval_rel_results(all_results, output_dir, topk=100, do_val=True):
     
     if cfg.TEST.DATASETS[0].find('vg') >= 0:
         prd_k_set = (1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 15, 20)
@@ -144,6 +141,13 @@ def eval_rel_results(all_results, output_dir, do_val):
                 for k in recalls:
                     recalls[k] = float(recalls[k]) / (float(all_gt_cnt) + 1e-12)
                 print_stats(recalls)
+                
+        print('Saving topk dets...')
+        topk_dets_f = os.path.join(output_dir, 'rel_detections_topk.pkl')
+        with open(topk_dets_f, 'wb') as f:
+            pickle.dump(topk_dets, f, pickle.HIGHEST_PROTOCOL)
+        logger.info('topk_dets size: {}'.format(len(topk_dets)))
+        print('Done.')
 
 
 def print_stats(recalls):

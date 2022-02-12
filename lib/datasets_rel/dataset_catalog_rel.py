@@ -98,7 +98,8 @@ DATASETS = {
     # VG dataset
     'vg_train': {
         IM_DIR:
-            _DATA_DIR + '/vg/VG_100K',
+            # _DATA_DIR + '/vg/VG_100K',
+            "/data6/wuyinjun/visual_genome/sgg_data/VG_100K/",
         ANN_FN:
             _DATA_DIR + '/vg/detections_train.json',
         ANN_FN2:
@@ -108,7 +109,8 @@ DATASETS = {
     },
     'vg_val': {
         IM_DIR:
-            _DATA_DIR + '/vg/VG_100K',
+            # _DATA_DIR + '/vg/VG_100K',
+            "/data6/wuyinjun/visual_genome/sgg_data/VG_100K/",
         ANN_FN:
             _DATA_DIR + '/vg/detections_val.json',
         ANN_FN2:
@@ -119,7 +121,8 @@ DATASETS = {
     # VRD dataset
     'vrd_train': {
         IM_DIR:
-            _DATA_DIR + '/vrd/train_images',
+            # _DATA_DIR + '/vrd/train_images',
+            "/data6/wuyinjun/visual_genome/VRD/train_images/",
         ANN_FN:
             _DATA_DIR + '/vrd/detections_train.json',
         ANN_FN2:
@@ -136,5 +139,289 @@ DATASETS = {
             _DATA_DIR + '/vrd/new_annotations_val.json',
         ANN_FN3:
             _DATA_DIR + '/vrd/predicates.json',
+    },
+    # GQA dataset
+    'gqa_train': {
+        IM_DIR:
+            _DATA_DIR + '/gqa/images',
+        ANN_FN:
+            _DATA_DIR + '/gqa/detections_train.json',
+        ANN_FN2:
+            _DATA_DIR + '/gqa/rel_annotations_train.json',
+        ANN_FN3:
+            _DATA_DIR + '/gqa/relationships.json',
+    },
+    'gqa_val': {
+        IM_DIR:
+            _DATA_DIR + '/gqa/images',
+        ANN_FN:
+            _DATA_DIR + '/gqa/detections_val.json',
+        ANN_FN2:
+            _DATA_DIR + '/gqa/rel_annotations_val.json',
+        ANN_FN3:
+            _DATA_DIR + '/gqa/relationships.json',
+    },
+    'gqa_all': {
+        IM_DIR:
+            _DATA_DIR + '/gqa/images',
+        ANN_FN:
+            _DATA_DIR + '/gqa/dummy_detections_all.json',
+        ANN_FN2:
+            _DATA_DIR + '/gqa/dummy_rel_annotations_all.json',
+        ANN_FN3:
+            _DATA_DIR + '/gqa/relationships.json',
+    },
+    'gqa_1st_of_3': {
+        IM_DIR:
+            _DATA_DIR + '/gqa/images',
+        ANN_FN:
+            _DATA_DIR + '/gqa/dummy_detections_all.json',
+        ANN_FN2:
+            _DATA_DIR + '/gqa/dummy_rel_annotations_all_1st_of_3.json',
+        ANN_FN3:
+            _DATA_DIR + '/gqa/relationships.json',
+    },
+    'gqa_2nd_of_3': {
+        IM_DIR:
+            _DATA_DIR + '/gqa/images',
+        ANN_FN:
+            _DATA_DIR + '/gqa/dummy_detections_all.json',
+        ANN_FN2:
+            _DATA_DIR + '/gqa/dummy_rel_annotations_all_2nd_of_3.json',
+        ANN_FN3:
+            _DATA_DIR + '/gqa/relationships.json',
+    },
+    'gqa_3rd_of_3': {
+        IM_DIR:
+            _DATA_DIR + '/gqa/images',
+        ANN_FN:
+            _DATA_DIR + '/gqa/dummy_detections_all.json',
+        ANN_FN2:
+            _DATA_DIR + '/gqa/dummy_rel_annotations_all_3rd_of_3.json',
+        ANN_FN3:
+            _DATA_DIR + '/gqa/relationships.json',
+    },
+    # GQA no_plural_verb dataset
+    'gqa_verb_train': {
+        IM_DIR:
+            _DATA_DIR + '/gqa/images',
+        ANN_FN:
+            _DATA_DIR + '/gqa/detections_train_no_plural.json',
+        ANN_FN2:
+            _DATA_DIR + '/gqa/rel_annotations_verb_no_plural_train.json',
+        ANN_FN3:
+            _DATA_DIR + '/gqa/relationships_verb.json',
+    },
+    'gqa_verb_val': {
+        IM_DIR:
+            _DATA_DIR + '/gqa/images',
+        ANN_FN:
+            _DATA_DIR + '/gqa/detections_val_no_plural.json',
+        ANN_FN2:
+            _DATA_DIR + '/gqa/rel_annotations_verb_no_plural_val.json',
+        ANN_FN3:
+            _DATA_DIR + '/gqa/relationships_verb.json',
+    },
+    'gqa_verb_all': {
+        IM_DIR:
+            _DATA_DIR + '/gqa/images',
+        ANN_FN:
+            _DATA_DIR + '/gqa/dummy_detections_no_plural_all.json',
+        ANN_FN2:
+            _DATA_DIR + '/gqa/dummy_rel_annotations_all.json',
+        ANN_FN3:
+            _DATA_DIR + '/gqa/relationships_verb.json',
+    },
+    'gqa_verb_1st_of_3': {
+        IM_DIR:
+            _DATA_DIR + '/gqa/images',
+        ANN_FN:
+            _DATA_DIR + '/gqa/dummy_detections_no_plural_all.json',
+        ANN_FN2:
+            _DATA_DIR + '/gqa/dummy_rel_annotations_all_1st_of_3.json',
+        ANN_FN3:
+            _DATA_DIR + '/gqa/relationships_verb.json',
+    },
+    'gqa_verb_2nd_of_3': {
+        IM_DIR:
+            _DATA_DIR + '/gqa/images',
+        ANN_FN:
+            _DATA_DIR + '/gqa/dummy_detections_no_plural_all.json',
+        ANN_FN2:
+            _DATA_DIR + '/gqa/dummy_rel_annotations_all_2nd_of_3.json',
+        ANN_FN3:
+            _DATA_DIR + '/gqa/relationships_verb.json',
+    },
+    'gqa_verb_3rd_of_3': {
+        IM_DIR:
+            _DATA_DIR + '/gqa/images',
+        ANN_FN:
+            _DATA_DIR + '/gqa/dummy_detections_no_plural_all.json',
+        ANN_FN2:
+            _DATA_DIR + '/gqa/dummy_rel_annotations_all_3rd_of_3.json',
+        ANN_FN3:
+            _DATA_DIR + '/gqa/relationships_verb.json',
+    },
+    'gqa_verb_1st_of_6': {
+        IM_DIR:
+            _DATA_DIR + '/gqa/images',
+        ANN_FN:
+            _DATA_DIR + '/gqa/dummy_detections_no_plural_all.json',
+        ANN_FN2:
+            _DATA_DIR + '/gqa/dummy_rel_annotations_all_1st_of_6.json',
+        ANN_FN3:
+            _DATA_DIR + '/gqa/relationships_verb.json',
+    },
+    'gqa_verb_2nd_of_6': {
+        IM_DIR:
+            _DATA_DIR + '/gqa/images',
+        ANN_FN:
+            _DATA_DIR + '/gqa/dummy_detections_no_plural_all.json',
+        ANN_FN2:
+            _DATA_DIR + '/gqa/dummy_rel_annotations_all_2nd_of_6.json',
+        ANN_FN3:
+            _DATA_DIR + '/gqa/relationships_verb.json',
+    },
+    'gqa_verb_3rd_of_6': {
+        IM_DIR:
+            _DATA_DIR + '/gqa/images',
+        ANN_FN:
+            _DATA_DIR + '/gqa/dummy_detections_no_plural_all.json',
+        ANN_FN2:
+            _DATA_DIR + '/gqa/dummy_rel_annotations_all_3rd_of_6.json',
+        ANN_FN3:
+            _DATA_DIR + '/gqa/relationships_verb.json',
+    },
+    'gqa_verb_4th_of_6': {
+        IM_DIR:
+            _DATA_DIR + '/gqa/images',
+        ANN_FN:
+            _DATA_DIR + '/gqa/dummy_detections_no_plural_all.json',
+        ANN_FN2:
+            _DATA_DIR + '/gqa/dummy_rel_annotations_all_4th_of_6.json',
+        ANN_FN3:
+            _DATA_DIR + '/gqa/relationships_verb.json',
+    },
+    'gqa_verb_5th_of_6': {
+        IM_DIR:
+            _DATA_DIR + '/gqa/images',
+        ANN_FN:
+            _DATA_DIR + '/gqa/dummy_detections_no_plural_all.json',
+        ANN_FN2:
+            _DATA_DIR + '/gqa/dummy_rel_annotations_all_5th_of_6.json',
+        ANN_FN3:
+            _DATA_DIR + '/gqa/relationships_verb.json',
+    },
+    'gqa_verb_6th_of_6': {
+        IM_DIR:
+            _DATA_DIR + '/gqa/images',
+        ANN_FN:
+            _DATA_DIR + '/gqa/dummy_detections_no_plural_all.json',
+        ANN_FN2:
+            _DATA_DIR + '/gqa/dummy_rel_annotations_all_6th_of_6.json',
+        ANN_FN3:
+            _DATA_DIR + '/gqa/relationships_verb.json',
+    },
+    # GQA no_plural_spt dataset
+    'gqa_spt_train': {
+        IM_DIR:
+            _DATA_DIR + '/gqa/images',
+        ANN_FN:
+            _DATA_DIR + '/gqa/detections_train_no_plural.json',
+        ANN_FN2:
+            _DATA_DIR + '/gqa/rel_annotations_spt_no_plural_train.json',
+        ANN_FN3:
+            _DATA_DIR + '/gqa/relationships_spt.json',
+    },
+    'gqa_spt_val': {
+        IM_DIR:
+            _DATA_DIR + '/gqa/images',
+        ANN_FN:
+            _DATA_DIR + '/gqa/detections_val_no_plural.json',
+        ANN_FN2:
+            _DATA_DIR + '/gqa/rel_annotations_spt_no_plural_val.json',
+        ANN_FN3:
+            _DATA_DIR + '/gqa/relationships_spt.json',
+    },
+    # GQA no_plural_misc dataset
+    'gqa_misc_train': {
+        IM_DIR:
+            _DATA_DIR + '/gqa/images',
+        ANN_FN:
+            _DATA_DIR + '/gqa/detections_train_no_plural.json',
+        ANN_FN2:
+            _DATA_DIR + '/gqa/rel_annotations_misc_no_plural_train.json',
+        ANN_FN3:
+            _DATA_DIR + '/gqa/relationships_misc.json',
+    },
+    'gqa_misc_val': {
+        IM_DIR:
+            _DATA_DIR + '/gqa/images',
+        ANN_FN:
+            _DATA_DIR + '/gqa/detections_val_no_plural.json',
+        ANN_FN2:
+            _DATA_DIR + '/gqa/rel_annotations_misc_no_plural_val.json',
+        ANN_FN3:
+            _DATA_DIR + '/gqa/relationships_misc.json',
+    },
+    'gqa_misc_1st_of_6': {
+        IM_DIR:
+            _DATA_DIR + '/gqa/images',
+        ANN_FN:
+            _DATA_DIR + '/gqa/dummy_detections_no_plural_all.json',
+        ANN_FN2:
+            _DATA_DIR + '/gqa/dummy_rel_annotations_all_1st_of_6.json',
+        ANN_FN3:
+            _DATA_DIR + '/gqa/relationships_misc.json',
+    },
+    'gqa_misc_2nd_of_6': {
+        IM_DIR:
+            _DATA_DIR + '/gqa/images',
+        ANN_FN:
+            _DATA_DIR + '/gqa/dummy_detections_no_plural_all.json',
+        ANN_FN2:
+            _DATA_DIR + '/gqa/dummy_rel_annotations_all_2nd_of_6.json',
+        ANN_FN3:
+            _DATA_DIR + '/gqa/relationships_misc.json',
+    },
+    'gqa_misc_3rd_of_6': {
+        IM_DIR:
+            _DATA_DIR + '/gqa/images',
+        ANN_FN:
+            _DATA_DIR + '/gqa/dummy_detections_no_plural_all.json',
+        ANN_FN2:
+            _DATA_DIR + '/gqa/dummy_rel_annotations_all_3rd_of_6.json',
+        ANN_FN3:
+            _DATA_DIR + '/gqa/relationships_misc.json',
+    },
+    'gqa_misc_4th_of_6': {
+        IM_DIR:
+            _DATA_DIR + '/gqa/images',
+        ANN_FN:
+            _DATA_DIR + '/gqa/dummy_detections_no_plural_all.json',
+        ANN_FN2:
+            _DATA_DIR + '/gqa/dummy_rel_annotations_all_4th_of_6.json',
+        ANN_FN3:
+            _DATA_DIR + '/gqa/relationships_misc.json',
+    },
+    'gqa_misc_5th_of_6': {
+        IM_DIR:
+            _DATA_DIR + '/gqa/images',
+        ANN_FN:
+            _DATA_DIR + '/gqa/dummy_detections_no_plural_all.json',
+        ANN_FN2:
+            _DATA_DIR + '/gqa/dummy_rel_annotations_all_5th_of_6.json',
+        ANN_FN3:
+            _DATA_DIR + '/gqa/relationships_misc.json',
+    },
+    'gqa_misc_6th_of_6': {
+        IM_DIR:
+            _DATA_DIR + '/gqa/images',
+        ANN_FN:
+            _DATA_DIR + '/gqa/dummy_detections_no_plural_all.json',
+        ANN_FN2:
+            _DATA_DIR + '/gqa/dummy_rel_annotations_all_6th_of_6.json',
+        ANN_FN3:
+            _DATA_DIR + '/gqa/relationships_misc.json',
     },
 }

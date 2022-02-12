@@ -10,7 +10,8 @@ import torch
 import torch.utils.data as data
 import torch.utils.data.sampler as torch_sampler
 from torch.utils.data.dataloader import default_collate
-from torch._six import int_classes as _int_classes
+# from torch._six import int_classes as _int_classes
+_int_classes=int
 
 from core.config import cfg
 from roi_data_rel.minibatch_rel import get_minibatch

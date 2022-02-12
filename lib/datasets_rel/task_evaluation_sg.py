@@ -24,9 +24,9 @@ np.set_printoptions(precision=3)
 logger = logging.getLogger(__name__)
 
 
-def eval_rel_results(all_results, output_dir, do_val=True, do_vis=False, do_special=False):
-    
-    topk = 100
+def eval_rel_results(all_results, output_dir, topk=100, do_val=True, do_vis=False, do_special=False):
+
+    print('topk: ', topk)
 
     if cfg.TEST.DATASETS[0].find('vg') >= 0:
         eval_per_img = True
@@ -42,9 +42,9 @@ def eval_rel_results(all_results, output_dir, do_val=True, do_vis=False, do_spec
         eval_ap = False
     
     if eval_per_img:
-        recalls = {1: [], 5: [], 10: [], 20: [], 50: [], 100: []}
+        recalls = {1: [], 5: [], 10: [], 20: [], 50: [], 100: [], 200: [], 400: []}
     else:
-        recalls = {1: 0, 5: 0, 10: 0, 20: 0, 50: 0, 100: 0}
+        recalls = {1: 0, 5: 0, 10: 0, 20: 0, 50: 0, 100: 0, 200: 0, 400: 0}
         if do_val:
             all_gt_cnt = 0
 
@@ -143,14 +143,14 @@ def eval_rel_results(all_results, output_dir, do_val=True, do_vis=False, do_spec
                               det_labels_p_top=det_labels_p_top,
                               det_labels_o_top=det_labels_o_top,
                               det_scores_top=det_scores_top))
-        topk_dets[-1]['det_scores_top_vis'] = det_scores_top_vis
-        if 'prd_scores_bias' in res:
-            topk_dets[-1]['det_scores_top_bias'] = det_scores_top_bias
-        if 'prd_scores_spt' in res:
-            topk_dets[-1]['det_scores_top_spt'] = det_scores_top_spt
-        if do_vis:
-            topk_dets[-1].update(dict(blob_conv=res['blob_conv'],
-                                      blob_conv_prd=res['blob_conv_prd']))
+#         topk_dets[-1]['det_scores_top_vis'] = det_scores_top_vis
+#         if 'prd_scores_bias' in res:
+#             topk_dets[-1]['det_scores_top_bias'] = det_scores_top_bias
+#         if 'prd_scores_spt' in res:
+#             topk_dets[-1]['det_scores_top_spt'] = det_scores_top_spt
+#         if do_vis:
+#             topk_dets[-1].update(dict(blob_conv=res['blob_conv'],
+#                                       blob_conv_prd=res['blob_conv_prd']))
 
         if do_val:
             gt_boxes_sbj = res['gt_sbj_boxes']  # (#num_gt, 4)
@@ -245,11 +245,11 @@ def eval_rel_results(all_results, output_dir, do_val=True, do_vis=False, do_spec
             # print('Excel-friendly format:')
             # print(excel_str.strip()[:-1])
     
-#     print('Saving topk dets...')
-#     topk_dets_f = os.path.join(output_dir, 'rel_detections_topk.pkl')
-#     with open(topk_dets_f, 'wb') as f:
-#         pickle.dump(topk_dets, f, pickle.HIGHEST_PROTOCOL)
-#     logger.info('topk_dets size: {}'.format(len(topk_dets)))
+    print('Saving topk dets...')
+    topk_dets_f = os.path.join(output_dir, 'rel_detections_topk_{}.pkl'.format(topk))
+    with open(topk_dets_f, 'wb') as f:
+        pickle.dump(topk_dets, f, pickle.HIGHEST_PROTOCOL)
+    logger.info('topk_dets size: {}'.format(len(topk_dets)))
     print('Done.')
 
 
