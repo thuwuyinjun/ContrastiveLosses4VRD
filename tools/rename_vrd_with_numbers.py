@@ -47,13 +47,13 @@ def process_vrd_split(in_split, out_split):
 
 
     # store the filename mappings here
-    name_map_fname = 'data/vrd/%s_fname_mapping.json' %(out_split)
+    name_map_fname = data_root + '%s_fname_mapping.json' %(out_split)
     with open(name_map_fname, 'w') as f:
         json.dump(name_map, f, sort_keys=True, indent=4)
         f.close()
 
     # load the original annotations
-    with open('data/vrd/annotations_' + in_split + '.json', 'r') as f:
+    with open(data_root + 'annotations_' + in_split + '.json', 'r') as f:
         vrd_anns = json.load(f)
         f.close()
     new_anns = {}
@@ -67,7 +67,7 @@ def process_vrd_split(in_split, out_split):
 
 
     # create the new annotations 
-    with open('data/vrd/new_annotations_' + out_split + '.json', 'w') as outfile:
+    with open(data_root + 'new_annotations_' + out_split + '.json', 'w') as outfile:
         json.dump(new_anns, outfile)
 
 

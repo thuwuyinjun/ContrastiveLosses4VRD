@@ -124,11 +124,14 @@ DATASETS = {
             # _DATA_DIR + '/vrd/train_images',
             "/data6/wuyinjun/visual_genome/VRD/train_images/",
         ANN_FN:
-            _DATA_DIR + '/vrd/detections_train.json',
+            # _DATA_DIR + '/vrd/detections_train.json',
+            '/data6/wuyinjun/visual_genome/VRD/detections_train.json',
         ANN_FN2:
-            _DATA_DIR + '/vrd/new_annotations_train.json',
+            # _DATA_DIR + '/vrd/new_annotations_train.json',
+            '/data6/wuyinjun/visual_genome/VRD/new_annotations_train.json',
         ANN_FN3:
-            _DATA_DIR + '/vrd/predicates.json',
+            # _DATA_DIR + '/vrd/predicates.json',
+            '/data6/wuyinjun/visual_genome/VRD/predicates.json',
     },
     'vrd_val': {
         IM_DIR:

@@ -22,13 +22,13 @@ def box_transform(box):
 
 
 def convert_anno(split):
-
-    with open('data/vrd/new_annotations_' + split + '.json', 'r') as f:
+    data_root = "/data6/wuyinjun/visual_genome/VRD/"
+    with open(data_root + '/new_annotations_' + split + '.json', 'r') as f:
         vrd_anns = json.load(f)
 
 
     print(len(vrd_anns))
-    data_root = "/data6/wuyinjun/visual_genome/VRD/"
+    # data_root = "/data6/wuyinjun/visual_genome/VRD/"
     img_dir = data_root + split + '_images/'
     new_imgs = []
     new_anns = []
@@ -60,7 +60,7 @@ def convert_anno(split):
                 new_anns.append(dict(area=area, bbox=bbox, category_id=cat, id=ann_id, image_id=image_id, iscrowd=0))
                 ann_id += 1
 
-    with open('data/vrd/objects.json', 'r') as f:
+    with open(data_root + '/objects.json', 'r') as f:
         vrd_objs = json.load(f)
 
 
@@ -71,7 +71,7 @@ def convert_anno(split):
 
     new_data = dict(images=new_imgs, annotations=new_anns, categories=new_objs)
 
-    with open('data/vrd/detections_' + split + '.json', 'w') as outfile:
+    with open(data_root + '/detections_' + split + '.json', 'w') as outfile:
         json.dump(new_data, outfile)
 
 
